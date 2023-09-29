@@ -37,17 +37,23 @@ function menu {
 	date --utc +"%a %b %e %Y, %I:%M%P"
 	echo ""
 	echo -ne "1) Kernel Errors Since Boot:\t"
-	journalctl -lkb -p 3 | wc -l
+	journalctl -qlkb -p 3 | wc -l
 	echo -ne "2) Kernel Warnings Since Boot:\t"
-	journalctl -lkb -p 4..4 | wc -l
+	journalctl -qlkb -p 4..4 | wc -l
 	echo -ne "3) Kernel Entries Since Boot:\t"
-	journalctl -lkb | wc -l
+	journalctl -qlkb | wc -l
 	echo -ne "   Kernel Errors Last Hour:\t"
-	journalctl -lk -S "-1h" -p 3 | wc -l
+	journalctl -qlk -S "-1h" -p 3 | wc -l
 	echo -ne "   Kernel Warnings Last Hour:\t"
-	journalctl -lk -S "-1h" -p 4..4 | wc -l
+	journalctl -qlk -S "-1h" -p 4..4 | wc -l
 	echo -ne "   Kernel Entries Last Hour:\t"
-	journalctl -lk -S "-1h" | wc -l
+	journalctl -qlk -S "-1h" | wc -l
+	echo -ne "   Kernel Errors Last 2 Min:\t"
+	journalctl -qlk -S "-2min" -p 3 | wc -l
+	echo -ne "   Kernel Warnings Last 2 Min:\t"
+	journalctl -qlk -S "-2min" -p 4..4 | wc -l
+	echo -ne "   Kernel Entries Last 2 Min:\t"
+	journalctl -qlk -S "-2min" | wc -l
 	echo    "4) Kernel Everything Previous Boot"
 	echo -n "Select: "
 	read a

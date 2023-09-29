@@ -4,14 +4,17 @@ A simple interface to the important logs
 
 ## New Roadmap
 
-* So first we're just going to create a menu that can dump out logs we like at different priority levels
-* We'd also like to get some basic log statistics
-* We'll start in bash but we'll build another application that bash can call!
-
-
-1) So, for kernel
-  1) When was last boot
-  2) What time is it now
+So now we have to look at systemd logs
+0. Uptime
+1. If it makes sense, put it in follow (kernel, follow with history)
+2. What do the unit files say about restarts and stuff
+3. Systemd (display all general items)
+4. Status of units of interes, stats:
+* Number of Reboots?
+* Number of Errors?
+* Number of Warnings?
+* How long as it been up?
+5. Logs for items of interest (Last Boot? Just End)
 
 
 ## Roadmap

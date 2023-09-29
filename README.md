@@ -5,8 +5,6 @@ A simple interface to the important logs
 ## New Roadmap
 
 So now we have to look at systemd logs
-0. Uptime
-1. If it makes sense, put it in follow (kernel, follow with history)
 2. What do the unit files say about restarts and stuff
 3. Systemd (display all general items)
 4. Status of units of interes, stats:

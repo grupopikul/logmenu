@@ -1,20 +1,32 @@
 #!/bin/bash
 
 ## Could take in argument like -g REGEX
-# Could also use -x is useful
+
+function bfk {
+	TMPFILE=$(mktemp)
+	journalctl -kxb $1 -p $2 | ccze -A > $TMPFILE
+	journalctl -kxfp 3 -n 0 | ccze -A >> $TMPFILE &
+	TAIL_PID=$!
+	less -RXS +F $TMPFILE
+	kill $TAIL_PID 2> /dev/null
+	rm $TMPFILE
+}
+
+
 function sel {
+	export SYSTEMD_PAGER='less -RSXM'
 	case $1 in
-		1) journalctl -ekb -p 3; menu ;;
-		2) journalctl -ekb -p 4..4; menu;;
-		3) journalctl -ekb; menu;;
-		4) journalctl -ek -p 3; menu;;
-		5) journalctl -ek -p 4..4; menu;;
-		6) journalctl -ek; menu;;
-		7) journalctl -ekb -1; menu ;;
+		1) bfk 0 3; menu;;
+		2) bfk 0 4..4; menu;;
+		3) bfk 0 7; menu;;
+		4) bfk -1 7;  menu;;
 	esac
 }
 
 function menu {
+	echo ""
+	uptime --pretty
+	echo ""
 	echo -n "NYC: "
 	TZ='America/New_York' date +"%a %b %e %Y, %I:%M%P"
 	echo -n "BOG: "
@@ -22,19 +34,19 @@ function menu {
 	echo -n "UTC: "
 	date --utc +"%a %b %e %Y, %I:%M%P"
 	echo ""
-	echo -n "1) Kernel Errors Since Boot: "
+	echo -ne "1) Kernel Errors Since Boot:\t"
 	journalctl -lkb -p 3 | wc -l
-	echo -n "2) Kernel Warnings Since Boot: "
+	echo -ne "2) Kernel Warnings Since Boot:\t"
 	journalctl -lkb -p 4..4 | wc -l
-	echo -n "3) Kernel Entries Since Boot: "
+	echo -ne "3) Kernel Entries Since Boot:\t"
 	journalctl -lkb | wc -l
-	echo -n "4) Kernel Errors Last Hour: "
+	echo -ne "   Kernel Errors Last Hour:\t"
 	journalctl -lk -S "-1h" -p 3 | wc -l
-	echo -n "5) Kernel Warnings Last Hour: "
+	echo -ne "   Kernel Warnings Last Hour:\t"
 	journalctl -lk -S "-1h" -p 4..4 | wc -l
-	echo -n "6) Kernel Entries Last Hour: "
+	echo -ne "   Kernel Entries Last Hour:\t"
 	journalctl -lk -S "-1h" | wc -l
-	echo    "7) Kernel Everything Previous Boot"
+	echo    "4) Kernel Everything Previous Boot"
 	echo -n "Select: "
 	read a
 	sel $a

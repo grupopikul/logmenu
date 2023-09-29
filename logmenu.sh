@@ -29,6 +29,8 @@ function menu {
 	echo ""
 	uptime --pretty
 	echo ""
+	echo -n "LOC: "
+	date +"%a %b %e %Y, %I:%M%P"
 	echo -n "NYC: "
 	TZ='America/New_York' date +"%a %b %e %Y, %I:%M%P"
 	echo -n "BOG: "

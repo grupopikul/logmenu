@@ -1,6 +1,19 @@
 # logmenu
 A simple interface to the important logs
 
+
+## New Roadmap
+
+* So first we're just going to create a menu that can dump out logs we like at different priority levels
+* We'd also like to get some basic log statistics
+* We'll start in bash but we'll build another application that bash can call!
+
+
+1) So, for kernel
+  1) When was last boot
+  2) What time is it now
+
+
 ## Roadmap
 **First Look at other options**
 * read json file or other file to print out menu options

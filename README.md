@@ -5,6 +5,7 @@ A simple interface to the important logs
 ## New Roadmap
 
 So now we have to look at systemd logs
+1. Probably read a file of systemd units
 2. What do the unit files say about restarts and stuff
 3. Systemd (display all general items)
 4. Status of units of interes, stats:

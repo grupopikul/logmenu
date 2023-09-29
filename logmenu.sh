@@ -5,7 +5,9 @@
 function bfk {
 	TMPFILE=$(mktemp)
 	journalctl -kxb $1 -p $2 | ccze -A > $TMPFILE
-	journalctl -kxfp 3 -n 0 | ccze -A >> $TMPFILE &
+	while read -r line; do
+		echo "$line" | ccze -A >> $TMPFILE
+	done < <(journalctl -kxfp $2 -n 0) &
 	TAIL_PID=$!
 	less -RXS +F $TMPFILE
 	kill $TAIL_PID 2> /dev/null

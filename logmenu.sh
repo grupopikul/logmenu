@@ -138,7 +138,7 @@ function menu {
 	uptime --pretty
 	failed_units="$(systemctl list-units --failed -q)"
 	if [ -n "$failed_units" ]; then
-		systemctl list-units --failed -Kernel q
+		systemctl list-units --failed -q
 	else
 		echo "No failed units"
 	fi
